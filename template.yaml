@@ -54,16 +54,29 @@ Resources:
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${MyApiGateway}/*/GET/simple-api"
   SimpleLambdaExecutionRole:
-  Type: AWS::IAM::Role
-  Properties:
-    RoleName: SimpleLambdaExecutionRole
-    AssumeRolePolicyDocument:
-      Version: "2012-10-17"
-      Statement:
-        - Effect: Allow
-          Principal:
-            Service: lambda.amazonaws.com
-          Action: sts:AssumeRole
+  Resources:
+  SimpleLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: SimpleLambdaExecutionRole
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: LambdaBasicExecutionPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: "*"
 
 # AWSTemplateFormatVersion: '2010-09-09'
 # Transform: AWS::Serverless-2016-10-31
