@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: Simple API Gateway and Lambda Function using CloudFormation
+Description: Simple API Gateway and Lambda Function setup using CloudFormation
 
 Resources:
   # IAM Role for Lambda
